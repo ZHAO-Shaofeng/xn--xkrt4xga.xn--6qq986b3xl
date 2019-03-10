@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>❤</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="images/favicon.ico" />
+</head>
+<body>
+
+<style type="text/css">
+body{margin: 0;position: absolute;display: flex;width: 100%;height: 100%;justify-content: center;align-items: center;flex-direction: column;font-family: "微软雅黑";}
+a{-webkit-tap-highlight-color: transparent;}
+.startTime{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 15px 0;
+  opacity: 0.12;
+  font-size: 14px;
+}
+.digit{
+  font-size: 30px;
+  margin: 0 5px;
+  white-space: nowrap;
+}
+.heart-box{
+  position: relative;
+}
+.heart {
+  margin: 0 auto 130px;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  transition: .3s;
+  animation-name: shake;
+  animation-duration: .5s;
+  animation-direction:alternate;
+  animation-iteration-count: infinite;
+  user-select: none; 
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+}
+.entrance {
+  position: absolute;
+  width: 170px;
+  height: 160px;
+  left: 50%;
+  top: 0;
+  margin-left: -85px;
+  background: transparent;
+  animation-name: none;
+  -webkit-user-select: none;
+}
+.heart div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: red;
+  animation-name: shadow;
+  animation-duration: .5s;
+  animation-direction:alternate;
+  animation-iteration-count: infinite;
+}
+.topLeft, .topRight {border-radius: 100px 100px 0 0;}
+.topLeft {transform: translate(-35px, 0) rotate(-45deg);}
+.topRight {transform: translate(35px, 0) rotate(45deg);}
+.bottom {transform: translate(0, 35px) rotate(45deg) scale(1);}
+.host{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 15px 0;
+  font-size: 12px;
+  color: #aaa;
+}
+.host a{
+  text-decoration: none;
+  color: #aaa;
+  font-weight: normal !important;
+}
+.dateTime{
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+.dateTime div{
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  transition: .3s;
+}
+.dateTime div.on{
+  opacity: 1;
+}
+/* 定义动画 */
+@keyframes shake {
+  from {transform: scale(.9, .9);}
+  to {transform: scale(1.1, 1.1);}
+}
+@keyframes shadow {
+  from {box-shadow: 0 0 0 red;}
+  to {box-shadow: 0 0 50px red;}
+}
+</style>
+
+<p class="startTime">2014-04-08</p>
+<div class="heart-box">
+  <div class="heart">
+    <div class="topLeft"></div>
+    <div class="topRight"></div>
+    <div class="bottom"></div>
+  </div>
+  <div class="entrance"></div>
+</div>
+<div class="dateTime">
+  <div id="elapseClock" class="on"></div>
+  <div id="elapseClock-year"><span class="digit"> 4 </span> 年 </div>
+</div>
+<p class="host">Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript">
+  function btnCount_Click(){  
+    s1 = "2014-04-08"
+    s2 = getNowFormatDate()
+    return DateDiff(s1,s2)
+  }
+  // 获取当前日期 yyyy-mm-dd
+  function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = '-';
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+      month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+      strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+  }
+  //计算天数差
+  function DateDiff(sDate1, sDate2){    //sDate1和sDate2是yyyy-mm-dd格式  
+    var aDate, oDate1, oDate2, iDays;
+    aDate = sDate1.split('-');
+    oDate1 = new Date(aDate[1] + '/' + aDate[2] + '/' + aDate[0]);
+    aDate = sDate2.split('-');
+    oDate2 = new Date(aDate[1] + '/' + aDate[2] + '/' + aDate[0]);
+    iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 /24);
+    return iDays;
+  }
+  //计算月份差
+  function YearDiff(){
+    s1 = "2014-04-08";
+    s2 = getNowFormatDate();
+    var date1, date2, iy, im, id;
+    date1 = s1.split('-');
+    date2 = s2.split('-');
+    /*
+      d1y纪念日的年、d1m~的月、d1d~的日
+      d2y当前日期的年、d2m~的月、d2d~的日
+    */
+    var d1y = parseInt(date1[0]),
+        d2y = parseInt(date2[0]),
+        d1m = parseInt(date1[1]),
+        d1d = parseInt(date1[2]),
+        d2m = parseInt(date2[1]),
+        d2d = parseInt(date2[2])
+    iy = d2y - d1y;
+    if (d2m > d1m) {
+      im = d2m - d1m;
+    }else if (d2m == d1m) {
+      im = 0;
+    }else{
+      iy -= 1
+      im = 12 - d1m + d2m;
+    }
+    if (d2d > d1d) {
+      id = d2d - d1d;
+    }else if (d2d == d1d) {
+      id = 0;
+    }else{
+      im -= 1;
+      id = 30 - d1d + d2d;
+    }
+    var result = "<span class=\"digit\">" + iy + "</span> 年 <span class=\"digit\">" + im + "</span> 个月 <span class=\"digit\">" + id + "</span> 天 "; 
+    $("#elapseClock-year").html(result);
+  }
+  YearDiff();
+
+  // 获取时间 h:m:s
+  function startTime(){
+    var today=new Date()
+    var h=today.getHours()
+    var m=today.getMinutes()
+    var s=today.getSeconds()
+    m=checkTime(m)
+    s=checkTime(s)
+    var result = "<span class=\"digit\">" + btnCount_Click() + "</span> 天 <span class=\"digit\">" + h + "</span> 时 <span class=\"digit\">" + m + "</span> 分 <span class=\"digit\">" + s + "</span> 秒"; 
+    $("#elapseClock").html(result);
+    t=setTimeout('startTime()',500)
+  }
+  function checkTime(i){
+    if (i<10){
+      i="0" + i
+    }
+    return i
+  }
+  startTime();
+
+  // 长按和单击爱心
+  $(".entrance").on({ 
+  touchstart: function(e) {
+    // 长按事件触发
+    timeOutEvent = setTimeout(function() {
+      timeOutEvent = 0;
+      //长按2秒
+      location.href = 'http://love.s1.natapp.cc';
+    }, 2000);
+    // e.preventDefault();
+  },
+  touchmove: function() {
+    clearTimeout(timeOutEvent);
+    timeOutEvent = 0;
+  },  
+  touchend: function() {
+    clearTimeout(timeOutEvent);
+    if (timeOutEvent != 0) {
+        // 点击事件
+        $(".dateTime div").toggleClass("on");
+      }
+      return false;
+    }
+  })
+</script>
+</body>
+</html>
