@@ -220,28 +220,36 @@ a{-webkit-tap-highlight-color: transparent;}
   startTime();
 
   // 长按和单击爱心
-  $(".entrance").on({ 
-  touchstart: function(e) {
-    // 长按事件触发
-    timeOutEvent = setTimeout(function() {
-      timeOutEvent = 0;
-      //长按2秒
-      location.href = 'http://love.s1.natapp.cc';
-    }, 2000);
-    // e.preventDefault();
-  },
-  touchmove: function() {
-    clearTimeout(timeOutEvent);
-    timeOutEvent = 0;
-  },  
-  touchend: function() {
-    clearTimeout(timeOutEvent);
-    if (timeOutEvent != 0) {
-        // 点击事件
-        $(".dateTime div").toggleClass("on");
-      }
-      return false;
-    }
+  // $(".entrance").on({ 
+  //   touchstart: function(e) {
+  //     // 长按事件触发
+  //     timeOutEvent = setTimeout(function() {
+  //       timeOutEvent = 0;
+  //       //长按2秒
+  //       location.href = 'http://love.s1.natapp.cc';
+  //     }, 2000);
+  //     // e.preventDefault();
+  //   },
+  //   touchmove: function() {
+  //     clearTimeout(timeOutEvent);
+  //     timeOutEvent = 0;
+  //   },
+  //   touchend: function() {
+  //     clearTimeout(timeOutEvent);
+  //     if (timeOutEvent != 0) {
+  //       // 点击事件
+  //       $(".dateTime div").toggleClass("on");
+  //     }
+  //     return false;
+  //   }
+  // })
+
+  $(document).on('click', '.entrance', function () {
+    window.location.href = 'http://love.s1.natapp.cc';
+  })
+
+  $(document).on('click', '.dateTime', function () {
+    $(".dateTime div").toggleClass("on");
   })
 </script>
 </body>
