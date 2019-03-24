@@ -245,7 +245,9 @@ a{-webkit-tap-highlight-color: transparent;}
   // })
 
   $(document).on('click', '.entrance', function () {
-    window.location.href = 'http://love.s1.natapp.cc';
+    if (window.innerWidth < 576) {
+      window.location.href = 'http://love.s1.natapp.cc';
+    }
   })
 
   $(document).on('click', '.dateTime', function () {
